@@ -23,7 +23,7 @@ applications:
     helm:
       valueFiles:
         # Raw GitHub URL so Argo CD can fetch your custom values
-        - $repo/traefik/values.yaml
+        - https://raw.githubusercontent.com/TheEndBoss101-Web/k8s-gitops_test/main/traefik/values.yaml
       # You can also add extra values directly here if you want to override:
       # values: |
       #   service:
