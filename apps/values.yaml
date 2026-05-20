@@ -9,25 +9,20 @@ config:
 
 applications:
   # ── Git-based apps (folders at repo root) ─────────────────────────────────
-  - name: traefik
-    # Optional: force the Application CR into the argocd namespace (recommended)
-    # namespace: argocd
-    # destination.namespace defaults to "traefik" (the folder name)
-
   - name: whoami
     # namespace: argocd   # uncomment if you want the Application CR in argocd ns
 
   # ── External Helm chart (traefik official chart) ───────────────────────────
-  - name: traefik_helm
-    # namespace: argocd               # ← recommended (remove the old "default")
+  - name: traefik
+    namespace: argocd                    # Application CR lives in argocd namespace
     destination:
-      namespace: traefik              # where the actual Traefik will be installed
+      namespace: traefik                 # Actual Traefik pods/services go here
     repoURL: https://traefik.github.io/charts
     chart: traefik
-    targetRevision: 40.2.0            # you can bump this anytime
+    targetRevision: 40.2.0               # ← bump this when you want a newer version
     helm:
       valueFiles:
-        # Use raw GitHub URL so Argo CD can fetch your values from this repo
+        # Raw GitHub URL so Argo CD can fetch your custom values
         - https://raw.githubusercontent.com/TheEndBoss101-Web/k8s-gitops_test/main/traefik/values.yaml
       # You can also add extra values directly here if you want to override:
       # values: |
