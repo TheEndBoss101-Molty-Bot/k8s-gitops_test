@@ -1,5 +1,5 @@
 # traefik/values.yaml
-# Traefik v3 Helm Chart values
+# Traefik v3 Helm Chart minimal values
 
 # Global configuration
 global:
@@ -18,31 +18,7 @@ service:
   type: LoadBalancer
   annotations: {}
 
-# Ports/Entrypoints configuration
-ports:
-  traefik:
-    port: 9000
-    expose:
-      default: false
-  web:
-    port: 80
-    expose:
-      default: true
-    exposedPort: 80
-    protocol: TCP
-  websecure:
-    port: 443
-    expose:
-      default: true
-    exposedPort: 443
-    protocol: TCP
-
-# TLS configuration
-tlsOptions:
-  default:
-    minVersion: VersionTLS12
-
-# Ingressroutes disabled (we'll create them separately)
+# Ingressroutes dashboard disabled
 ingressRoute:
   dashboard:
     enabled: false
