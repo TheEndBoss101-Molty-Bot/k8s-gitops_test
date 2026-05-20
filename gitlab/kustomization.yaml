@@ -4,7 +4,7 @@ namespace: gitlab
 resources:
 - namespace.yaml
 - gitlab-pvc.yaml
-- gitlab-config.yaml
+#- gitlab-config.yaml
 - gitlab-service.yaml
 - gitlab-deployment.yaml
 - gitlab-ingressroute.yaml
