@@ -10,6 +10,7 @@ config:
 applications:
   # ── Git-based apps (folders at repo root) ─────────────────────────────────
   - name: whoami
+  - name: gitlab
 
   # ── External Helm chart (traefik official chart) ───────────────────────────
   - name: traefik
