@@ -19,8 +19,7 @@ service:
   annotations: {}
 
 # Custom entrypoints (ports)
-ports: {}
-entryPoints:
+ports:
   traefik:
     port: 9000
   http-external:
