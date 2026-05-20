@@ -4,6 +4,9 @@
 # Global configuration
 global:
   sendAnonymousUsage: false
+logs:
+  general:
+    level: "DEBUG"
 
 # Deployment settings
 deployment:
