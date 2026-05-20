@@ -2,29 +2,20 @@ config:
   spec:
     destination:
       server: https://kubernetes.default.svc
-      namespace: default
     source:
       repoURL: https://github.com/TheEndBoss101-Web/k8s-gitops_test.git
       targetRevision: HEAD
 
 applications:
-  # ── Git-based apps (folders at repo root) ─────────────────────────────────
-  - name: whoami
-    # namespace: argocd   # uncomment if you want the Application CR in argocd ns
-
-  # ── External Helm chart (traefik official chart) ───────────────────────────
   - name: traefik
-    namespace: argocd                    # Application CR lives in argocd namespace
+    namespace: argocd
     destination:
-      namespace: traefik                 # Actual Traefik pods/services go here
+      namespace: traefik
     repoURL: https://traefik.github.io/charts
     chart: traefik
-    targetRevision: 40.2.0               # ← bump this when you want a newer version
+    targetRevision: 40.2.0
     helm:
       valueFiles:
-        # Raw GitHub URL so Argo CD can fetch your custom values
         - https://raw.githubusercontent.com/TheEndBoss101-Web/k8s-gitops_test/main/traefik/values.yaml
-      # You can also add extra values directly here if you want to override:
-      # values: |
-      #   service:
-      #     type: LoadBalancer
+      values: |
+        fullnameOverride: traefik
