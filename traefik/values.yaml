@@ -1,5 +1,5 @@
 # traefik/values.yaml
-# Traefik v3 Helm Chart minimal values
+# Traefik v3 Helm Chart values with custom entrypoints
 
 # Global configuration
 global:
@@ -17,6 +17,21 @@ service:
   enabled: true
   type: LoadBalancer
   annotations: {}
+
+# Custom entrypoints (ports)
+ports:
+  traefik:
+    port: 9000
+  web:
+    port: 80
+  websecure:
+    port: 443
+  http-internal:
+    port: 8080
+    protocol: TCP
+  https-internal:
+    port: 8443
+    protocol: TCP
 
 # Ingressroutes dashboard disabled
 ingressRoute:
