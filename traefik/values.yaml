@@ -22,6 +22,10 @@ service:
 ports:
   traefik:
     port: 9000
+  web:
+    port: null
+  websecure:
+    port: null
   http-external:
     port: 8080
     protocol: TCP
