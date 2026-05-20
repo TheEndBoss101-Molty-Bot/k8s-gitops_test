@@ -6,19 +6,22 @@ metadata:
 spec:
   project: default
   sources:
+    # Source 0: Git repo reference for values files
+    - repoURL: https://github.com/TheEndBoss101-Web/k8s-gitops_test.git
+      targetRevision: HEAD
+      path: .
+      ref: repo
     # Source 1: Traefik Helm chart
     - repoURL: https://traefik.github.io/charts
       chart: traefik
       targetRevision: 40.2.0
       helm:
         valueFiles:
-          - $values/traefik/values.yaml
-      refName: traefik-helm
+          - $repo/traefik/values.yaml
     # Source 2: Local manifests (whoami)
     - repoURL: https://github.com/TheEndBoss101-Web/k8s-gitops_test.git
       targetRevision: HEAD
       path: whoami
-      refName: whoami-manifests
   destination:
     server: https://kubernetes.default.svc
     namespace: default
