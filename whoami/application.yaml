@@ -1,20 +1,2 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: whoami
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/TheEndBoss101-Web/k8s-gitops_test.git
-    targetRevision: HEAD
-    path: whoami
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
+# This file is now managed by the main k8s-gitops application in /traefik/application.yaml
+# Delete this once you verify the consolidated setup works in ArgoCD
