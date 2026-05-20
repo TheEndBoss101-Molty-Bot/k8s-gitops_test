@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd   # ← change only if your ArgoCD namespace is different
+spec:
+  project: default
+  source:
+    repoURL: https://traefik.github.io/charts
+    chart: traefik
+    targetRevision: 40.2.0
+    helm:
+      values: |
+        {{- include "values.yaml content here" . | nindent 8 }}   # ArgoCD will use the values above
+      # If you prefer a separate values file, change to:
+      # valueFiles:
+      # - $values/traefik/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default   # or "traefik" if you want a dedicated namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
