@@ -18,10 +18,8 @@ service:
   type: LoadBalancer
   annotations: {}
 
-# Custom entrypoints (ports)
+# Custom entrypoints ONLY - no web/websecure
 ports:
-  web: null
-  websecure: null
   traefik:
     port: 9000
   http-external:
