@@ -6,6 +6,11 @@ spec:
   entryPoints:
     - web-external
     - websecure-external
+    - web
+    - websecure
+  containers:
+    - args:
+        - '--name=whoami'
   routes:
   - match: Host(`whoami.local`)
     kind: Rule
