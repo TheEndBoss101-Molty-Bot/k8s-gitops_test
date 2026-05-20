@@ -20,22 +20,20 @@ service:
 
 # Custom entrypoints ONLY - no web/websecure
 ports:
-  web: null
-  websecure: null
-  traefik:
-    port: 9000
-  http-external:
-    port: 8080
-    protocol: TCP
-  http-internal:
+  web: 
     port: 80
     protocol: TCP
-  https-external:
-    port: 8443
-    protocol: TCP
-  https-internal:
+  websecure: 
     port: 443
     protocol: TCP
+  external-web:
+    port: 8080
+    protocol: TCP
+  external-websecure:
+    port: 8443
+    protocol: TCP
+  traefik:
+    port: 9000
 
 # Ingressroutes dashboard disabled
 ingressRoute:
