@@ -20,6 +20,8 @@ service:
 
 # Custom entrypoints (ports)
 ports:
+  web: null
+  websecure: null
   traefik:
     port: 9000
   http-external:
