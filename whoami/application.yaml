@@ -1,2 +1,0 @@
-# This file is now managed by the main k8s-gitops application in /traefik/application.yaml
-# Delete this once you verify the consolidated setup works in ArgoCD

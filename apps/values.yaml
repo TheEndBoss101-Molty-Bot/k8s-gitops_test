@@ -1,0 +1,19 @@
+config:
+  spec:
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: default
+    source:
+      repoURL: https://github.com/TheEndBoss101-Web/k8s-gitops_test.git
+      targetRevision: HEAD
+
+applications:
+  - name: traefik
+  - name: traefik_helm
+    repoURL: https://traefik.github.io/charts
+    chart: traefik
+    targetRevision: 40.2.0
+    helm:
+      valueFiles:
+        - $repo/traefik/values.yaml
+  - name: whoami
