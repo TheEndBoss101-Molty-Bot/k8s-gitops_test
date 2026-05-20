@@ -1,80 +1,63 @@
 # traefik/values.yaml
-# Disable defaults to avoid port conflicts
-ports:
-  web:
-    enabled: false
-  websecure:
-    enabled: false
+# Traefik v3 Helm Chart values
 
-  # Your 4 entrypoints exactly as requested
-  http-external:
-    port: 8080
-    exposedPort: 8080
-    expose:
-      default: true
-    protocol: TCP
+# Global configuration
+global:
+  sendAnonymousUsage: false
 
-  http-internal:
-    port: 80
-    exposedPort: 80
-    expose:
-      default: true
-    protocol: TCP
+# Deployment settings
+deployment:
+  replicas: 1
+  securityContext:
+    capabilities:
+      add: ["NET_BIND_SERVICE"]
 
-  https-external:
-    port: 8443
-    exposedPort: 8443
-    expose:
-      default: true
-    protocol: TCP
-    tls:
-      enabled: true
-
-  https-internal:
-    port: 443
-    exposedPort: 443
-    expose:
-      default: true
-    protocol: TCP
-    tls:
-      enabled: true
-
-# Service (LoadBalancer so you get external IPs)
+# Service configuration
 service:
   enabled: true
   type: LoadBalancer
   annotations: {}
-  # ipFamilyPolicy: SingleStack   # uncomment if you need IPv4-only
 
-# Dashboard (accessible via IngressRoute later or port-forward)
-dashboard:
-  enabled: true
-  ingressRoute: true   # creates a default IngressRoute on the traefik entrypoint
+# Ports/Entrypoints configuration
+ports:
+  traefik:
+    port: 9000
+    expose: false
+  web:
+    port: 80
+    expose: true
+    exposedPort: 80
+    protocol: TCP
+  websecure:
+    port: 443
+    expose: true
+    exposedPort: 443
+    protocol: TCP
+    tls:
+      enabled: true
 
-# Persistence for acme.json (uncomment when you enable Cloudflare)
+# Ingressroutes disabled (we'll create them separately)
+ingressRoute:
+  dashboard:
+    enabled: false
+
+# Persistence (for acme.json when you add cert resolver)
 # persistence:
 #   enabled: true
 #   size: 128Mi
 #   path: /certs
 
-# Cloudflare ACME placeholder (leave blank for now = "default certs")
-# Uncomment and fill when ready:
+# Additional arguments for ACME/Cloudflare (uncomment when ready)
 # additionalArguments:
-#   - --entrypoints.https-external.http.tls.certresolver=cloudflare
-#   - --entrypoints.https-internal.http.tls.certresolver=cloudflare
+#   - --entrypoints.websecure.http.tls.certresolver=cloudflare
 #
 # certificatesResolvers:
 #   cloudflare:
 #     acme:
-#       email: ""                    # ← your email
+#       email: ""
 #       storage: /certs/acme.json
 #       dnsChallenge:
 #         provider: cloudflare
 #         resolvers:
 #           - "1.1.1.1:53"
 #           - "8.8.8.8:53"
-
-deployment:
-  securityContext:
-    capabilities:
-      add: ["NET_BIND_SERVICE"]
