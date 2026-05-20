@@ -1,26 +1,30 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik
-  namespace: argocd   # ← change only if your ArgoCD namespace is different
+  name: k8s-gitops
+  namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://traefik.github.io/charts
-    chart: traefik
-    targetRevision: 40.2.0
-    helm:
-      values: |
-        {{- include "values.yaml content here" . | nindent 8 }}   # ArgoCD will use the values above
-      # If you prefer a separate values file, change to:
-      # valueFiles:
-      # - $values/traefik/values.yaml
+  sources:
+    # Source 1: Traefik Helm chart
+    - repoURL: https://traefik.github.io/charts
+      chart: traefik
+      targetRevision: 40.2.0
+      helm:
+        valueFiles:
+          - $values/traefik/values.yaml
+      refName: traefik-helm
+    # Source 2: Local manifests (whoami)
+    - repoURL: https://github.com/TheEndBoss101-Web/k8s-gitops_test.git
+      targetRevision: HEAD
+      path: whoami
+      refName: whoami-manifests
   destination:
     server: https://kubernetes.default.svc
-    namespace: default   # or "traefik" if you want a dedicated namespace
+    namespace: default
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
