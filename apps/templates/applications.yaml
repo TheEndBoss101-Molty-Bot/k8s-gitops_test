@@ -30,8 +30,7 @@ spec:
 
     # Helm values/overrides work for BOTH git apps AND external charts
     {{- with .helm }}
-    helm:
-      {{- . | toYaml | nindent 4 }}
+    helm: {{- .helm | quote }}
     {{- end }}
   # ───────────────────────────────────────────────────────────────────────────
 
