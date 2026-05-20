@@ -22,15 +22,17 @@ service:
 ports:
   traefik:
     port: 9000
-  web:
-    port: 80
-  websecure:
-    port: 443
-  http-internal:
+  http-external:
     port: 8080
     protocol: TCP
-  https-internal:
+  http-internal:
+    port: 80
+    protocol: TCP
+  https-external:
     port: 8443
+    protocol: TCP
+  https-internal:
+    port: 443
     protocol: TCP
 
 # Ingressroutes dashboard disabled
@@ -46,7 +48,8 @@ ingressRoute:
 
 # Additional arguments for ACME/Cloudflare (uncomment when ready)
 # additionalArguments:
-#   - --entrypoints.websecure.http.tls.certresolver=cloudflare
+#   - --entrypoints.https-external.http.tls.certresolver=cloudflare
+#   - --entrypoints.https-internal.http.tls.certresolver=cloudflare
 #
 # certificatesResolvers:
 #   cloudflare:
