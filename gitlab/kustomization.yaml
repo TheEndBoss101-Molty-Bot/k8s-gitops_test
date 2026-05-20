@@ -8,4 +8,4 @@ resources:
 - gitlab-service.yaml
 - gitlab-deployment.yaml
 - gitlab-ingressroute.yaml
-- gitlab-registry-ingressroute.yaml
+#- gitlab-registry-ingressroute.yaml
