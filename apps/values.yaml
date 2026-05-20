@@ -10,6 +10,7 @@ config:
 applications:
   - name: traefik
   - name: traefik_helm
+    namespace: default
     destination:
       namespace: default
     repoURL: https://traefik.github.io/charts
