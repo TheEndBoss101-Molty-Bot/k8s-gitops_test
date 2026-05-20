@@ -22,19 +22,25 @@ service:
 ports:
   traefik:
     port: 9000
-    expose: false
+    expose:
+      default: false
   web:
     port: 80
-    expose: true
+    expose:
+      default: true
     exposedPort: 80
     protocol: TCP
   websecure:
     port: 443
-    expose: true
+    expose:
+      default: true
     exposedPort: 443
     protocol: TCP
-    tls:
-      enabled: true
+
+# TLS configuration
+tlsOptions:
+  default:
+    minVersion: VersionTLS12
 
 # Ingressroutes disabled (we'll create them separately)
 ingressRoute:
