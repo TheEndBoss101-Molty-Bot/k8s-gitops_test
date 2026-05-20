@@ -4,8 +4,8 @@ metadata:
   name: whoami
 spec:
   entryPoints:
-    - http-external
-    - https-external
+    - web-external
+    - websecure-external
   routes:
   - match: Host(`whoami.local`)
     kind: Rule

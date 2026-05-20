@@ -26,10 +26,10 @@ ports:
   websecure: 
     port: 443
     protocol: TCP
-  external-web:
+  web-external:
     port: 8080
     protocol: TCP
-  external-websecure:
+  websecure-external:
     port: 8443
     protocol: TCP
   traefik:
