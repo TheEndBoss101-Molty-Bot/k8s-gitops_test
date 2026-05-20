@@ -9,16 +9,32 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: {{ .destination.namespace | default .name | quote }}
+    # Fixed: safe default when .destination is missing (prevents the nil pointer error)
+    namespace: {{ (default (dict) .destination).namespace | default .name | quote }}
     server: {{ $config.spec.destination.server | quote }}
   project: {{ .project | default "default" }}
   source:
+    # Common fields with per-app overrides
+    repoURL: {{ .repoURL | default $config.spec.source.repoURL | quote }}
+    targetRevision: {{ .targetRevision | default $config.spec.source.targetRevision | quote }}
+
+    # ── EXTERNAL HELM CHART LOGIC (new) ─────────────────────────────────────
+    # If the app entry has "chart:", treat it as an external Helm chart repo
+    # (no path, uses chart + repoURL + optional helm: values)
+    {{- if .chart }}
+    chart: {{ .chart | quote }}
+    {{- else }}
+    # Otherwise it's a git-based app (standard path in this repo)
     path: {{ .path | default .name | quote }}
-    repoURL: {{ $config.spec.source.repoURL }}
-    targetRevision: {{ $config.spec.source.targetRevision }}
-    {{- with .tool }}
-    {{- . | toYaml | nindent 4 }}
     {{- end }}
+
+    # Helm values/overrides work for BOTH git apps AND external charts
+    {{- with .helm }}
+    helm:
+      {{- . | toYaml | nindent 4 }}
+    {{- end }}
+  # ───────────────────────────────────────────────────────────────────────────
+
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
@@ -26,4 +42,4 @@ spec:
       prune: true
       selfHeal: true
 ---
-{{ end -}}
+{{ end }}
