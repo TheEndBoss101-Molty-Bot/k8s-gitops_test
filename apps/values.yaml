@@ -2,11 +2,16 @@ config:
   spec:
     destination:
       server: https://kubernetes.default.svc
+      namespace: default
     source:
       repoURL: https://github.com/TheEndBoss101-Web/k8s-gitops_test.git
       targetRevision: HEAD
 
 applications:
+  # ── Git-based apps (folders at repo root) ─────────────────────────────────
+  - name: whoami
+
+  # ── External Helm chart (traefik official chart) ───────────────────────────
   - name: traefik
     namespace: argocd
     destination:
