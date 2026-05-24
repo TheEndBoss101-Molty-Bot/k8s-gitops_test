@@ -24,7 +24,7 @@ metadata:
   namespace: vaultwarden
 data:
   DOMAIN: "https://vault.theendboss101.com"
-  DATABASE_URL: "postgresql://vaultwarden:CHANGE_ME_VAULTWARDEN_DB_PASS@postgresql.vaultwarden.svc.cluster.local:5432/vaultwarden"
+  DATABASE_URL: "postgresql://vaultwarden:CHANGE_ME_VAULTWARDEN_DB_PASS@postgresql.database.svc.cluster.local:5432/vaultwarden"
   SIGNUPS_ALLOWED: "true"
   INVITATIONS_ALLOWED: "false"
   # Uncomment to enable WebSocket notifications

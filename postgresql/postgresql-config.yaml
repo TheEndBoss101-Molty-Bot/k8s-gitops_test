@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: postgresql-init
-  namespace: vaultwarden
+  namespace: database
 data:
   init.sql: |
     CREATE DATABASE vaultwarden;

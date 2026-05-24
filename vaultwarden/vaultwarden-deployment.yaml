@@ -21,7 +21,7 @@ spec:
         - sh
         - -c
         - |
-          until pg_isready -h postgresql.vaultwarden.svc.cluster.local -U vaultwarden; do
+          until pg_isready -h postgresql.database.svc.cluster.local -U vaultwarden; do
             echo "Waiting for PostgreSQL..."
             sleep 2
           done
