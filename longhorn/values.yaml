@@ -9,6 +9,7 @@ defaultSettings:
   # Allow volumes to be scheduled on nodes where they already have replicas
   replicaAutoBalance: "least-effort"
   # Use Longhorn as the default storage class for PVCs
+  # /var/lib/longhorn is writable on Talos — /var is a separate writable partition
   defaultDataPath: /var/lib/longhorn
   # Remove PVC data when PVC is deleted (safe for now, change if needed)
   removingGC: true
