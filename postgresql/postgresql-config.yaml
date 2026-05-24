@@ -6,5 +6,6 @@ metadata:
 data:
   init.sql: |
     CREATE USER vaultwarden WITH PASSWORD 'vaultwarden';
-    CREATE DATABASE vaultwarden OWNER vaultwarden;
     GRANT ALL PRIVILEGES ON DATABASE vaultwarden TO vaultwarden;
+    -- PG15+ dropped default CREATE on public schema — required for vaultwarden to create its tables
+    GRANT ALL ON SCHEMA public TO vaultwarden;
