@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgresql-init
+  namespace: vaultwarden
+data:
+  init.sql: |
+    CREATE DATABASE vaultwarden;
+    -- User will be created by the POSTGRES_USER env var
