@@ -21,17 +21,14 @@ spec:
         - sh
         - -c
         - |
-          until pg_isready -h postgresql.database.svc.cluster.local -U vaultwarden; do
+          until pg_isready -h postgresql.database.svc.cluster.local -U postgres; do
             echo "Waiting for PostgreSQL..."
             sleep 2
           done
           echo "PostgreSQL is ready!"
         env:
         - name: PGPASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: vaultwarden-db
-              key: password
+          value: postgres
       containers:
       - name: vaultwarden
         image: vaultwarden/server:latest
