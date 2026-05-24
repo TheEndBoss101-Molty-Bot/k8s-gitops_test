@@ -7,3 +7,4 @@ resources:
 - postgresql-pvc.yaml
 - postgresql-service.yaml
 - postgresql-deployment.yaml
+- postgresql-networkpolicy.yaml

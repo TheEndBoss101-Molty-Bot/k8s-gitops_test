@@ -41,4 +41,4 @@ persistence:
   defaultClass: true
   defaultClassReplicaCount: 2
   defaultFsType: ext4
-  reclaimPolicy: Delete
+  reclaimPolicy: Retain
